@@ -9,6 +9,9 @@ const connectDB = async () => {
   }
 
   //setup event listeners
+  mongoose.connection.on("connected", () => {
+    console.log("Database connected");
+  });
   mongoose.connection.on("error", (error) => {
     console.log("Database error:", error);
   });
