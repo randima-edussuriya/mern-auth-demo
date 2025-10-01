@@ -5,20 +5,21 @@ export const register = async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
-    //check if user already exist
-    // const existinUser = await userModel.findOne({ email });
-    // if (existinUser)
-    //   return res.json({ success: false, message: "User already exist" });
+    // check if user already exist
+    const existinUser = await userModel.findOne({ email });
+    if (existinUser)
+      return res
+        .status(409)
+        .json({ success: false, message: "User already exist" });
 
-    // const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    //save user
-    // const user = new userModel({ name, email, password: hashedPassword });
-    // await user.save();
-    // return res.json({ success: true });
-    return res.json({ name, email, password });
+    // save user
+    const user = new userModel({ name, email, password: hashedPassword });
+    await user.save();
+    return res.status(201).json({ success: true });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    res.status(500).json({ success: false, message: 'Something went wrong, Please try again later' });
   }
 };
 
