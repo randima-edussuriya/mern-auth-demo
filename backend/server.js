@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
   res.json("API is working");
 });
 
-//api end point
+//API end point
 app.use("/api/auth", authRouter);
 
 app.listen(port, () => {
