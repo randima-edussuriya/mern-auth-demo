@@ -19,7 +19,11 @@ export const register = async (req, res) => {
     await user.save();
     return res.status(201).json({ success: true });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Something went wrong, Please try again later' });
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong, Please try again later",
+    });
+    console.log(error);
   }
 };
 
