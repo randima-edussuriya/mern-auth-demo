@@ -31,3 +31,23 @@ export const validateRegister = (req, res, next) => {
   req.body = { name, email, password };
   next();
 };
+
+export const validateLogin = (req, res, next) => {
+  const email = req.body.email?.trim();
+  const password = req.body.password?.trim();
+
+  //check empty
+  if (!email || !password)
+    return res
+      .status(400)
+      .json({ success: false, message: "Fields are required" });
+
+  //validate email
+  if (!validator.isEmail(email))
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid email format" });
+
+  req.body = { email, password };
+  next();
+};
