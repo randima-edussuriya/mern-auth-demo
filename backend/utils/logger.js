@@ -1,4 +1,5 @@
 import winston from "winston";
+import "winston-daily-rotate-file";
 
 //define log format
 const logFormat = winston.format.printf(
@@ -14,7 +15,15 @@ const logger = winston.createLogger({
     winston.format.errors({ stack: true }), //capture stack trace
     logFormat
   ),
-  transports: [new winston.transports.File({ filename: "logs/combined.log" })],
+  transports: [
+    new winston.transports.DailyRotateFile({
+      filename: "logs/app-%DATE%.log",
+      datePattern: "YYYY-MM-DD",
+      zippedArchive: true,
+      maxSize: "20m",
+      maxFiles: "2d",
+    }),
+  ],
 });
 
 //console log for development
