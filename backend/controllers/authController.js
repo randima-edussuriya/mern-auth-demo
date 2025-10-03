@@ -1,5 +1,6 @@
 import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import logger from "../utils/logger.js";
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -23,7 +24,7 @@ export const register = async (req, res) => {
       success: false,
       message: "Something went wrong, Please try again later",
     });
-    console.log(error);
+    logger.error(error);
   }
 };
 
