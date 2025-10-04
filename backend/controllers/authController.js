@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import logger from "../utils/logger.js";
 import jwt from "jsonwebtoken";
+import transporter from "../config/nodemailer.js";
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -19,6 +20,18 @@ export const register = async (req, res) => {
     // save user
     const user = new userModel({ name, email, password: hashedPassword });
     await user.save();
+
+    //send email
+    await transporter.sendMail({
+      from: '"Auth Demo" <dinukasiwg217@gmail.com>',
+      to: email,
+      subject: "Welcome to Auth Demo",
+      html: `<h1>Welcome to Auth Demo</h1>
+      <p>Hi <b>${name}</b>, Thank you for registering at Auth Demo.</p>
+      <p>We are excited to have you on board!</p>
+      <p>Best Regards,<br/>Auth Demo Team</p>`,
+    });
+
     return res.status(201).json({ success: true });
   } catch (error) {
     res.status(500).json({
