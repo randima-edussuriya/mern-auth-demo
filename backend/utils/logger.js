@@ -2,16 +2,18 @@ import winston from "winston";
 import "winston-daily-rotate-file";
 
 //define log format
-const logFormat = winston.format.printf(({ level, message, timestamp, stack }) => {
-  return `${timestamp} [${level.toUpperCase()}]: ${stack || message}`;
-});
+const logFormat = winston.format.printf(
+  ({ level, message, timestamp, stack }) => {
+    return `${timestamp} [${level.toUpperCase()}]: ${stack || message}`;
+  }
+);
 
 const dailyRotateFile = new winston.transports.DailyRotateFile({
   filename: "logs/app-%DATE%.log",
   datePattern: "YYYY-MM-DD",
   zippedArchive: true,
   maxSize: "20m",
-  maxFiles: "2d",
+  maxFiles: "14d",
 });
 
 const logger = winston.createLogger({
