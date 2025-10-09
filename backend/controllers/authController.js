@@ -23,7 +23,7 @@ export const register = async (req, res) => {
 
     //send email
     await transporter.sendMail({
-      from: '"Auth Demo" <dinukasiwg217@gmail.com>',
+      from: `"Auth Demo" <${process.env.SENDER_EMAIL}>`,
       to: email,
       subject: "Welcome to Auth Demo",
       html: `<h1>Welcome to Auth Demo</h1>
@@ -94,4 +94,48 @@ export const logout = async (req, res) => {
   return res
     .status(200)
     .json({ sucess: true, message: "Logged out successfully" });
+};
+
+export const sendVerifyOtp = async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const user = await userModel.findById(userId);
+    //check if user exist
+    if (!user)
+      return res.status(404).json({ sucess: false, message: "User not found" });
+    //check if user is already verified
+    if (user.isAccountVerified)
+      return res
+        .status(400)
+        .json({ success: false, message: "Account is already verified" });
+    //generate 6-digit OTP
+    const otp = String(Math.floor(Math.random() * 900000 + 100000));
+
+    //save OTP and expiry
+    user.verifyOtp = otp;
+    user.verifyOtpExpireAt = Date.now() + 5 * 60 * 1000; //5 minutes
+    user.save();
+
+    //send email
+    await transporter.sendMail({
+      from: `"Auth Demo" <${process.env.SENDER_EMAIL}>`,
+      to: user.email,
+      subject: "Account verification OTP",
+      html: `<h1>Account verification OTP</h1>
+      <p>Hi, <b>${user.name}</b></p>
+      <p>Your OTP for account verification is <b>${otp}</b>. This OTP is valid for 5 minutes.</p>
+      <p>If you did not request this, please ignore this email.</p>
+      <p>Best Regards,<br/>Auth Demo Team</p>`,
+    });
+
+    return res
+      .status(200)
+      .json({ success: true, message: "OTP sent successfully" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong, Please try again later",
+    });
+    logger.error(error);
+  }
 };
