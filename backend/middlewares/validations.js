@@ -34,8 +34,8 @@ export const validateRegister = (req, res, next) => {
 };
 
 export const validateLogin = (req, res, next) => {
-  const email = req.body.email?.trim();
-  const password = req.body.password?.trim();
+  const email = String(req.body.email || "").trim();
+  const password = String(req.body.password || "").trim();
 
   //check empty
   if (!email || !password)
@@ -50,6 +50,7 @@ export const validateLogin = (req, res, next) => {
       .json({ success: false, message: "Invalid email format" });
 
   req.body = { email, password };
+
   next();
 };
 
