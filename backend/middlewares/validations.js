@@ -54,14 +54,13 @@ export const validateLogin = (req, res, next) => {
 };
 
 export const validateUserId = (req, res, next) => {
-  // make string to avoid number input due to it's not detected by mongoose.Types.ObjectId.isValid
   const userId = String(req.body.userId).trim();
   //validate empty
   if (!userId)
     return res
       .status(400)
       .json({ success: false, message: "User ID is required" });
-  // validate ObjectId format before querying the database
+  // validate userId is valid ObjectId format
   if (!mongoose.Types.ObjectId.isValid(userId))
     return res.status(400).json({ success: false, message: "Invalid user ID" });
   req.body = { userId };
@@ -70,7 +69,7 @@ export const validateUserId = (req, res, next) => {
 
 export const validateVerifyEmail = (req, res, next) => {
   const userId = String(req.body.userId).trim();
-  const otp = req.body.otp;
+  const otp = String(req.body.otp).trim();
 
   //validate empty
   if (!userId || !otp)
@@ -78,7 +77,7 @@ export const validateVerifyEmail = (req, res, next) => {
       .status(400)
       .json({ success: false, message: "Fields are required" });
 
-  //validate userId ObjectId format
+  //validate userId is valid ObjectId format
   if (!mongoose.Types.ObjectId.isValid(userId))
     return res.status(400).json({ success: false, message: "Invalid user ID" });
 
@@ -86,7 +85,7 @@ export const validateVerifyEmail = (req, res, next) => {
   if (!/^\d{6}$/.test(otp))
     return res.status(400).json({ success: false, message: "Invalid OTP" });
 
-  req.body.userId = userId;
+  req.body = { userId, otp };
 
   next();
 };
