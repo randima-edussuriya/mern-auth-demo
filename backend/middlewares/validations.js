@@ -53,7 +53,7 @@ export const validateLogin = (req, res, next) => {
   next();
 };
 
-export const validateUserId = (req, res, next) => {
+export const validateSendVerifyOtp = (req, res, next) => {
   const userId = String(req.body.userId).trim();
   //validate empty
   if (!userId)
