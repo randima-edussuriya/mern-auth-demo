@@ -67,3 +67,26 @@ export const validateUserId = (req, res, next) => {
   req.body = { userId };
   next();
 };
+
+export const validateVerifyEmail = (req, res, next) => {
+  const userId = String(req.body.userId).trim();
+  const otp = req.body.otp;
+
+  //validate empty
+  if (!userId || !otp)
+    return res
+      .status(400)
+      .json({ success: false, message: "Fields are required" });
+
+  //validate userId ObjectId format
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(400).json({ success: false, message: "Invalid user ID" });
+
+  //validate otp is 6-digit
+  if (!/^\d{6}$/.test(otp))
+    return res.status(400).json({ success: false, message: "Invalid OTP" });
+
+  req.body.userId = userId;
+
+  next();
+};
