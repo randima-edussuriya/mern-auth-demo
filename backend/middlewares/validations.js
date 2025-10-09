@@ -2,9 +2,9 @@ import validator from "validator";
 import mongoose from "mongoose";
 
 export const validateRegister = (req, res, next) => {
-  const name = req.body.name?.trim();
-  const email = req.body.email?.trim();
-  const password = req.body.password?.trim();
+  const name = String(req.body.name || "").trim();
+  const email = String(req.body.email || "").trim();
+  const password = String(req.body.password || "").trim();
 
   // chechk empty
   if (!name || !email || !password)
@@ -55,7 +55,7 @@ export const validateLogin = (req, res, next) => {
 };
 
 export const validateSendVerifyOtp = (req, res, next) => {
-  const userId = String(req.body.userId).trim();
+  const userId = String(req.body.userId || "").trim();
   //validate empty
   if (!userId)
     return res
@@ -69,8 +69,8 @@ export const validateSendVerifyOtp = (req, res, next) => {
 };
 
 export const validateVerifyEmail = (req, res, next) => {
-  const userId = String(req.body.userId).trim();
-  const otp = String(req.body.otp).trim();
+  const userId = String(req.body.userId || "").trim();
+  const otp = String(req.body.otp || "").trim();
 
   //validate empty
   if (!userId || !otp)
