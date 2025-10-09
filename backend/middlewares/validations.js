@@ -1,4 +1,5 @@
 import validator from "validator";
+import mongoose from "mongoose";
 
 export const validateRegister = (req, res, next) => {
   const name = req.body.name?.trim();
@@ -49,5 +50,20 @@ export const validateLogin = (req, res, next) => {
       .json({ success: false, message: "Invalid email format" });
 
   req.body = { email, password };
+  next();
+};
+
+export const validateUserId = (req, res, next) => {
+  // make string to avoid number input due to it's not detected by mongoose.Types.ObjectId.isValid
+  const userId = String(req.body.userId).trim();
+  //validate empty
+  if (!userId)
+    return res
+      .status(400)
+      .json({ success: false, message: "User ID is required" });
+  // validate ObjectId format before querying the database
+  if (!mongoose.Types.ObjectId.isValid(userId))
+    return res.status(400).json({ success: false, message: "Invalid user ID" });
+  req.body = { userId };
   next();
 };
