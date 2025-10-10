@@ -139,3 +139,36 @@ export const sendVerifyOtp = async (req, res) => {
     logger.error(error);
   }
 };
+
+export const verifyEmail = async (req, res) => {
+  const { userId, otp } = req.body;
+
+  try {
+    const user = await userModel.findById(userId);
+    //check if user exist
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    // check otp
+    if (user.verifyOtp === "" || user.verifyOtp !== otp)
+      return res.status(400).json({ success: false, message: "Invalid OTP" });
+    // check OTP expiry
+    if (user.verifyOtpExpireAt < Date.now())
+      return res.status(400).json({ success: false, message: "OTP expired" });
+    //update user
+    user.isAccountVerified = true;
+    user.verifyOtp = "";
+    user.verifyOtpExpireAt = 0;
+    await user.save();
+    return res
+      .status(200)
+      .json({ success: true, message: "Email verified successfully" });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something wnet wrong, Please try again later",
+    });
+    logger.error(error);
+  }
+};
