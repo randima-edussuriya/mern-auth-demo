@@ -54,39 +54,19 @@ export const validateLogin = (req, res, next) => {
   next();
 };
 
-export const validateSendVerifyOtp = (req, res, next) => {
-  const userId = String(req.body.userId || "").trim();
-  //validate empty
-  if (!userId)
-    return res
-      .status(400)
-      .json({ success: false, message: "User ID is required" });
-  // validate userId is valid ObjectId format
-  if (!mongoose.Types.ObjectId.isValid(userId))
-    return res.status(400).json({ success: false, message: "Invalid user ID" });
-  req.body = { userId };
-  next();
-};
-
-export const validateVerifyEmail = (req, res, next) => {
-  const userId = String(req.body.userId || "").trim();
+export const validateOtp = (req, res, next) => {
   const otp = String(req.body.otp || "").trim();
 
   //validate empty
-  if (!userId || !otp)
+  if (!otp)
     return res
       .status(400)
       .json({ success: false, message: "Fields are required" });
-
-  //validate userId is valid ObjectId format
-  if (!mongoose.Types.ObjectId.isValid(userId))
-    return res.status(400).json({ success: false, message: "Invalid user ID" });
 
   //validate otp is 6-digit
   if (!/^\d{6}$/.test(otp))
     return res.status(400).json({ success: false, message: "Invalid OTP" });
 
-  req.body = { userId, otp };
-
+  req.body.otp = otp;
   next();
 };
