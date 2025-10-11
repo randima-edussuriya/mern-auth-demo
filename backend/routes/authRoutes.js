@@ -9,7 +9,7 @@ import {
 import {
   validateLogin,
   validateRegister,
-  validateVerifyEmail,
+  validateOtp,
 } from "../middlewares/validations.js";
 import userAuth from "../middlewares/userAuth.js";
 
@@ -20,6 +20,6 @@ authRouter.post("/login", validateLogin, login);
 authRouter.post("/logout", logout);
 
 authRouter.post("/send-verify-otp", userAuth, sendVerifyOtp);
-authRouter.post("/verify-email", validateVerifyEmail, verifyEmail);
+authRouter.post("/verify-email", userAuth, validateOtp, verifyEmail);
 
 export default authRouter;
