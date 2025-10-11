@@ -9,9 +9,9 @@ import {
 import {
   validateLogin,
   validateRegister,
-  validateSendVerifyOtp,
   validateVerifyEmail,
 } from "../middlewares/validations.js";
+import userAuth from "../middlewares/userAuth.js";
 
 const authRouter = express.Router();
 
@@ -19,7 +19,7 @@ authRouter.post("/register", validateRegister, register);
 authRouter.post("/login", validateLogin, login);
 authRouter.post("/logout", logout);
 
-authRouter.post("/send-verify-otp", validateSendVerifyOtp, sendVerifyOtp);
+authRouter.post("/send-verify-otp", userAuth, sendVerifyOtp);
 authRouter.post("/verify-email", validateVerifyEmail, verifyEmail);
 
 export default authRouter;
