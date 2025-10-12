@@ -86,3 +86,37 @@ export const validateEmail = (req, res, next) => {
   req.body.email = email;
   next();
 };
+
+export const validateResetPassword = (req, res, next) => {
+  const email = String(req.body.email || "").trim();
+  const otp = String(req.body.otp || "").trim();
+  const newPassword = String(req.body.newPassword || "").trim();
+
+  //check empty
+  if (!email || !otp || !newPassword)
+    return res
+      .status(400)
+      .json({ success: false, message: "Fields are required." });
+  //validate email
+  if (!validator.isEmail(email))
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid email format" });
+  //validate otp is 6-digit
+  if (!/^\d{6}$/.test(otp))
+    return res.status(400).json({ success: false, message: "Invalid OTP" });
+  //validate password complexity
+  if (
+    !validator.isStrongPassword(newPassword, {
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    })
+  )
+    return res.status(400).json({ success: false, message: "Weak password" });
+
+  req.body = { email, otp, newPassword };
+  next();
+};
