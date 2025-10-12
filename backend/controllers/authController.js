@@ -32,7 +32,9 @@ export const register = async (req, res) => {
       <p>Best Regards,<br/>Auth Demo Team</p>`,
     });
 
-    return res.status(201).json({ success: true });
+    return res
+      .status(201)
+      .json({ success: true, message: "User registered successfully." });
   } catch (error) {
     res.status(500).json({
       success: false,
