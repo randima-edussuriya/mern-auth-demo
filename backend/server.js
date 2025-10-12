@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/connectDB.js";
 import authRouter from "./routes/authRoutes.js";
 import logger from "./utils/logger.js";
+import userRouter from "./routes/userRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 
 //API end point
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 app.listen(port, () => {
   logger.info(`Server started on port: ${port}`);
