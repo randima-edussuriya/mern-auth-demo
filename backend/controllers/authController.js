@@ -184,3 +184,41 @@ export const isAuthenticated = async (req, res) => {
       .json({ success: false, message: "Not authenticated" });
   }
 };
+
+export const sendResetOtp = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await userModel.findOne({ email });
+    //check if user exist
+    if (!user)
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    //generate 6-digit OTP
+    const otp = String(Math.floor(Math.random() * 900000 + 100000));
+    //save OTP,expiry
+    user.resetOtp = otp;
+    user.resetOtpExpireAt = Date.now() + 5 * 60 * 1000; //5 minutes
+    await user.save();
+    //send email
+    await transporter.sendMail({
+      from: `Auth Demo <${process.env.SENDER_EMAIL}>`,
+      to: email,
+      subject: "Password Rest OTP",
+      html: `<h1>Password Reset OTP</h1>
+      <p>Hi, <b>${user.name}</b></p>
+      <p>Yout OTP for password reset is <b>${otp}</b>. This OTP is valid for 5 minutes.</p>
+      <p>If you did not request this, please ignore this email.</p>
+      <p>Best Regards,<br/>Auth Demo Team</p>`,
+    });
+    return res
+      .status(200)
+      .json({ success: true, message: "OTP sent successfully." });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong, Please try again later.",
+    });
+    logger.error(error);
+  }
+};
