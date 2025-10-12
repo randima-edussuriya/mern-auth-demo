@@ -84,6 +84,5 @@ export const validateEmail = (req, res, next) => {
       .status(400)
       .json({ success: false, message: "Invalid email format." });
   req.body.email = email;
-  return res.status(200).json("Email validated");
-  // next();
+  next();
 };
