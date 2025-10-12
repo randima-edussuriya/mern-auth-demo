@@ -172,3 +172,13 @@ export const verifyEmail = async (req, res) => {
     logger.error(error);
   }
 };
+
+export const isAuthenticated = async (req, res) => {
+  try {
+    return res.status(200).json({ success: true, message: "Authenticated" });
+  } catch (error) {
+    return res
+      .status(401)
+      .json({ success: false, message: "Not authenticated" });
+  }
+};
