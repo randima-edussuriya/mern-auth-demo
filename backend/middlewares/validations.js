@@ -1,5 +1,4 @@
 import validator from "validator";
-import mongoose from "mongoose";
 
 export const validateRegister = (req, res, next) => {
   const name = String(req.body.name || "").trim();
