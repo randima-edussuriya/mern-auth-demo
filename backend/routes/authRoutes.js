@@ -4,6 +4,7 @@ import {
   login,
   logout,
   register,
+  resetPassword,
   sendResetOtp,
   sendVerifyOtp,
   verifyEmail,
@@ -13,6 +14,7 @@ import {
   validateRegister,
   validateOtp,
   validateEmail,
+  validateResetPassword,
 } from "../middlewares/validations.js";
 import userAuth from "../middlewares/userAuth.js";
 
@@ -32,5 +34,6 @@ authRouter.post("/is-authenticated", userAuth, isAuthenticated);
 
 //reset password
 authRouter.post("/send-reset-otp", validateEmail, sendResetOtp);
+authRouter.post("/reset-password", validateResetPassword, resetPassword);
 
 export default authRouter;
