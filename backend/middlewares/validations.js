@@ -70,3 +70,20 @@ export const validateOtp = (req, res, next) => {
   req.body.otp = otp;
   next();
 };
+
+export const validateEmail = (req, res, next) => {
+  const email = String(req.body.email || "").trim();
+  //validte empty
+  if (!email)
+    return res
+      .status(400)
+      .json({ success: false, message: "Email is required." });
+  //validate email format
+  if (!validator.isEmail(email))
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid email format." });
+  req.body.email = email;
+  return res.status(200).json("Email validated");
+  // next();
+};
