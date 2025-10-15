@@ -1,0 +1,25 @@
+import hand_wave from "../assets/hand_wave.png";
+
+function Header() {
+  return (
+    <div className="flex flex-col items-center justify-center gap-6 text-center h-screen text-gray-800 px-4">
+      <img className="w-25" src="favicon.svg" alt="header img png" />
+      <h1 className="text-xl font-medium sm:text-2xl">Hey, User 👋</h1>
+      <h1 className="text-3xl font-black sm:text-5xl  bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+        Welcome to MERN - Auth Demo App
+      </h1>
+      <p className="max-w-md">
+        This is a simple authentication app built using the MERN stack (MongoDB,
+        Express.js, React.js, Node.js) with JWT (JSON Web Tokens) for secure
+        user authentication and authorization.
+      </p>
+      <p>Feel free to explore the app and test its features!</p>
+      <p>Happy coding! 😊</p>
+      <button className="px-6 py-2 text-green-700 transition-all border border-green-700 rounded-full cursor-pointer hover:bg-green-200">
+        Get Started
+      </button>
+    </div>
+  );
+}
+
+export default Header;
