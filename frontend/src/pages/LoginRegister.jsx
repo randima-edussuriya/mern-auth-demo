@@ -44,12 +44,22 @@ function LoginRegister() {
               required
             />
           </div>
+          <p className="cursor-pointer mb-4">Forgot Password?</p>
+          <button className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium">
+            Sign Up
+          </button>
         </form>
-        <p className="cursor-pointer">Forgot Password?</p>
-        <button>Sign Up</button>
-        <p>
+        <p className="text-center mt-4 text-gray-400">
           Already have an account?{" "}
-          <span className="underline cursor-pointer">Login here</span>
+          <span className="underline cursor-pointer text-blue-400">
+            Login here
+          </span>
+        </p>
+        <p className="text-center mt-4 text-gray-400">
+          Don't have an account?{" "}
+          <span className="underline cursor-pointer text-blue-400">
+            Sign Up
+          </span>
         </p>
       </div>
     </div>
