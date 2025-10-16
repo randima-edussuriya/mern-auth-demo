@@ -4,9 +4,9 @@ import Header from "../components/Header";
 
 function Home() {
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center h-screen bg-[url('bg_image.png')] bg-cover bg-center">
       <NavBar />
-      <Header/>
+      <Header />
     </div>
   );
 }
