@@ -2,6 +2,7 @@ import { useState } from "react";
 import lock_icon from "../assets/lock_icon.svg";
 import mail_icon from "../assets/mail_icon.svg";
 import person_icon from "../assets/person_icon.svg";
+import { useNavigate } from "react-router-dom";
 
 function LoginRegister() {
   const [isLogin, setIsLogin] = useState(false);
@@ -11,6 +12,8 @@ function LoginRegister() {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
   //handle form input change
   const handlechange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -27,7 +30,8 @@ function LoginRegister() {
               Header section
         ---------------------------------------------- */}
         <img
-          className="mx-auto mb-3 w-13 sm:w-15"
+          onClick={() => navigate("/")}
+          className="mx-auto mb-3 w-13 sm:w-15 cursor-pointer"
           src="favicon.svg"
           alt="Logo"
         />
@@ -95,7 +99,14 @@ function LoginRegister() {
             )}
           </div>
 
-          {isLogin && <p className="cursor-pointer mb-4">Forgot Password?</p>}
+          {isLogin && (
+            <p
+              onClick={() => navigate("/reset-password")}
+              className="cursor-pointer mb-4"
+            >
+              Forgot Password?
+            </p>
+          )}
           <button
             type="submit"
             className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium"
