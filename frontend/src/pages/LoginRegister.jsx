@@ -8,6 +8,9 @@ function LoginRegister() {
   return (
     <div className="flex items-center justify-center min-h-screen  bg-gradient-to-br from-blue-300 to-green-300 px-6 sm:px-0">
       <div className="w-full sm:w-100 p-10 text-indigo-300 rounded-lg shadow-lg bg-slate-900">
+        {/* ------------------------------------------
+              Header section
+        ---------------------------------------------- */}
         <img
           className="mx-auto mb-3 w-13 sm:w-15"
           src="favicon.svg"
@@ -19,7 +22,11 @@ function LoginRegister() {
         <p className="mb-4 text-center">
           {isLogin ? "Log in to your account" : "Create your account"}
         </p>
+        {/* ------------------------------------------
+              Form Section
+        ---------------------------------------------- */}
         <form>
+          {/* Full name filed */}
           {!isLogin && (
             <div className="mb-4">
               <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
@@ -34,6 +41,7 @@ function LoginRegister() {
               <span className="text-red-400">error message for field</span>
             </div>
           )}
+          {/* Email filed */}
           <div className="mb-4">
             <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
               <img className="w-4" src={mail_icon} alt="mail icon" />
@@ -46,6 +54,7 @@ function LoginRegister() {
             </div>
             <span className="text-red-400">error message for field</span>
           </div>
+          {/* Password filed */}
           <div className="mb-4">
             <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
               <img className="w-4" src={lock_icon} alt="person icon" />
