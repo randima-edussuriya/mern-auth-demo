@@ -14,7 +14,7 @@ function Header() {
       </p>
       <p>Feel free to explore the app and test its features!</p>
       <p>Happy coding! 😊</p>
-      <button className="px-6 py-2 text-green-700 transition-all border border-green-700 rounded-full cursor-pointer hover:bg-green-200">
+      <button className="px-6 py-2 text-green-700 border border-green-700 rounded-full cursor-pointer hover:bg-green-200 transition-all">
         Get Started
       </button>
     </div>

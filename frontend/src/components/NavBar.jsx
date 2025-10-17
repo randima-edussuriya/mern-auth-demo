@@ -9,7 +9,7 @@ function NavBar() {
       <img src={logo} alt="Logo" className="w-28 sm:w-32" />
       <button
         onClick={() => navigate("/login")}
-        className="flex items-center gap-2 px-6 py-2 transition-all border border-blue-600 rounded-full cursor-pointer hover:bg-blue-200"
+        className="flex items-center gap-2 px-6 py-2 border border-blue-600 rounded-full cursor-pointer hover:bg-blue-200 transition-all"
       >
         Login
         <img src={arrowIcon} alt="arrowIcon" />

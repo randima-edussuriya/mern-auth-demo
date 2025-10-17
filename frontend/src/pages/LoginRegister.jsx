@@ -14,6 +14,7 @@ function LoginRegister() {
   });
 
   const navigate = useNavigate();
+
   //handle form input change
   const handlechange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
