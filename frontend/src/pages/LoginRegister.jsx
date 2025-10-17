@@ -11,9 +11,11 @@ function LoginRegister() {
     email: "",
     password: "",
   });
+  //handle form input change
   const handlechange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  //handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
