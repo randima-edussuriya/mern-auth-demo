@@ -6,7 +6,7 @@ function NavBar() {
   const navigate = useNavigate();
   return (
     <div className="absolute top-0 flex items-center justify-between w-full p-4 sm:p-6">
-      <img src={logo} alt="Logo" className="cursor-pointer w-28 sm:w-32" />
+      <img src={logo} alt="Logo" className="w-28 sm:w-32" />
       <button
         onClick={() => navigate("/login")}
         className="flex items-center gap-2 px-6 py-2 transition-all border border-blue-600 rounded-full cursor-pointer hover:bg-blue-200"
