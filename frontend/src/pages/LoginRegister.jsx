@@ -14,6 +14,10 @@ function LoginRegister() {
   const handlechange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
     <div className="flex items-center justify-center min-h-screen  bg-gradient-to-br from-blue-300 to-green-300 px-6 sm:px-0">
       <div className="w-full sm:w-100 p-10 text-indigo-300 rounded-lg shadow-lg bg-slate-900">
@@ -34,7 +38,7 @@ function LoginRegister() {
         {/* ------------------------------------------
               Form Section
         ---------------------------------------------- */}
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* Full name filed */}
           {!isLogin && (
             <div className="mb-4">
@@ -90,7 +94,10 @@ function LoginRegister() {
           </div>
 
           {isLogin && <p className="cursor-pointer mb-4">Forgot Password?</p>}
-          <button className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium">
+          <button
+            type="submit"
+            className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium"
+          >
             {isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
