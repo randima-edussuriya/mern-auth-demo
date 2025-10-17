@@ -5,6 +5,7 @@ import person_icon from "../assets/person_icon.svg";
 
 function LoginRegister() {
   const [isLogin, setIsLogin] = useState(false);
+  const [error, setError] = useState(false);
   return (
     <div className="flex items-center justify-center min-h-screen  bg-gradient-to-br from-blue-300 to-green-300 px-6 sm:px-0">
       <div className="w-full sm:w-100 p-10 text-indigo-300 rounded-lg shadow-lg bg-slate-900">
@@ -38,7 +39,9 @@ function LoginRegister() {
                   required
                 />
               </div>
-              <span className="text-red-400">error message for field</span>
+              {error && (
+                <span className="text-red-400">error message for field</span>
+              )}
             </div>
           )}
           {/* Email filed */}
@@ -52,7 +55,9 @@ function LoginRegister() {
                 required
               />
             </div>
-            <span className="text-red-400">error message for field</span>
+            {error && (
+              <span className="text-red-400">error message for field</span>
+            )}
           </div>
           {/* Password filed */}
           <div className="mb-4">
@@ -65,7 +70,9 @@ function LoginRegister() {
                 required
               />
             </div>
-            <span className="text-red-400">error message for field</span>
+            {error && (
+              <span className="text-red-400">error message for field</span>
+            )}
           </div>
 
           {isLogin && <p className="cursor-pointer mb-4">Forgot Password?</p>}
