@@ -6,6 +6,14 @@ import person_icon from "../assets/person_icon.svg";
 function LoginRegister() {
   const [isLogin, setIsLogin] = useState(false);
   const [error, setError] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+  const handlechange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
   return (
     <div className="flex items-center justify-center min-h-screen  bg-gradient-to-br from-blue-300 to-green-300 px-6 sm:px-0">
       <div className="w-full sm:w-100 p-10 text-indigo-300 rounded-lg shadow-lg bg-slate-900">
@@ -33,6 +41,8 @@ function LoginRegister() {
               <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
                 <img className="w-4" src={person_icon} alt="person icon" />
                 <input
+                  onChange={handlechange}
+                  name="fullName"
                   className="w-full bg-transparent outline-none"
                   type="text"
                   placeholder="Full Name"
@@ -49,6 +59,8 @@ function LoginRegister() {
             <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
               <img className="w-4" src={mail_icon} alt="mail icon" />
               <input
+                onChange={handlechange}
+                name="email"
                 className="w-full bg-transparent outline-none"
                 type="email"
                 placeholder="Email Address"
@@ -64,6 +76,8 @@ function LoginRegister() {
             <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
               <img className="w-4" src={lock_icon} alt="person icon" />
               <input
+                onChange={handlechange}
+                name="password"
                 className="w-full bg-transparent outline-none"
                 type="password"
                 placeholder="Password"
