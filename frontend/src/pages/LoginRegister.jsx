@@ -31,7 +31,7 @@ function LoginRegister() {
           src="favicon.svg"
           alt="Logo"
         />
-        <h1 className="mb-3 text-3xl font-semibold text-center text-white">
+        <h1 className="mb-3 text-2xl sm:text-3xl font-semibold text-center text-white">
           {isLogin ? "Login" : "Sign Up"}
         </h1>
         <p className="mb-4 text-center">
