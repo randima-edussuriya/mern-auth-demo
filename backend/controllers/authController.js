@@ -77,7 +77,7 @@ export const login = async (req, res) => {
     });
     return res
       .status(200)
-      .json({ sucess: true, data: { name: user.name, email: user.email } });
+      .json({ success: true, data: { name: user.name, email: user.email } });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -95,7 +95,7 @@ export const logout = async (req, res) => {
   });
   return res
     .status(200)
-    .json({ sucess: true, message: "Logged out successfully" });
+    .json({ success: true, message: "Logged out successfully" });
 };
 
 export const sendVerifyOtp = async (req, res) => {
@@ -104,7 +104,9 @@ export const sendVerifyOtp = async (req, res) => {
     const user = await userModel.findById(userId);
     //check if user exist
     if (!user)
-      return res.status(404).json({ sucess: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     //check if user is already verified
     if (user.isAccountVerified)
       return res
