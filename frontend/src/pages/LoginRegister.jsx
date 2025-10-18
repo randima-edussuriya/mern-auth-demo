@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import lock_icon from "../assets/lock_icon.svg";
 import mail_icon from "../assets/mail_icon.svg";
 import person_icon from "../assets/person_icon.svg";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function LoginRegister() {
   const [isLogin, setIsLogin] = useState(false);
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     password: "",
   });
+
+  // get context values
+  const { backendUrl, setIsLoggedIn } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -19,10 +25,35 @@ function LoginRegister() {
   const handlechange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   //handle form submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(formData);
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      axios.defaults.withCredentials = true;
+      if (isLogin) {
+        // login logic
+        const { data } = await axios.post(
+          `${backendUrl}/api/auth/login`,
+          formData
+        );
+        if (data.success) toast.success("login successful");
+      } else {
+        // register logic
+        const { data } = await axios.post(
+          `${backendUrl}/api/auth/register`,
+          formData
+        );
+        if (data.success) toast.success(data.message);
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Something went wrong, Please try again later");
+      }
+      console.error(error);
+    }
   };
   return (
     <div className="flex items-center justify-center min-h-screen  bg-gradient-to-br from-blue-300 to-green-300 px-6 sm:px-0">
@@ -53,7 +84,7 @@ function LoginRegister() {
                 <img className="w-4" src={person_icon} alt="person icon" />
                 <input
                   onChange={handlechange}
-                  name="fullName"
+                  name="name"
                   className="w-full bg-transparent outline-none"
                   type="text"
                   placeholder="Full Name"
