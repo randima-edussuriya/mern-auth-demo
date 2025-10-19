@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 function LoginRegister() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
