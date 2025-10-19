@@ -8,7 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 function LoginRegister() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [state, setState] = useState("login");
   const [error, setError] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -31,7 +31,7 @@ function LoginRegister() {
     try {
       e.preventDefault();
       axios.defaults.withCredentials = true;
-      if (isLogin) {
+      if (state === "login") {
         // login logic
         const { data } = await axios.post(
           `${backendUrl}/api/auth/login`,
@@ -46,7 +46,7 @@ function LoginRegister() {
           formData
         );
         if (data.success) toast.success(data.message);
-        setIsLogin(true)
+        setState("signup");
       }
     } catch (error) {
       if (error.response && error.response.data) {
@@ -70,17 +70,17 @@ function LoginRegister() {
           alt="Logo"
         />
         <h1 className="mb-3 text-2xl sm:text-3xl font-semibold text-center text-white">
-          {isLogin ? "Login" : "Sign Up"}
+          {state === "login" ? "Login" : "Sign Up"}
         </h1>
         <p className="mb-4 text-center">
-          {isLogin ? "Log in to your account" : "Create your account"}
+          {state === "login" ? "Log in to your account" : "Create your account"}
         </p>
         {/* ------------------------------------------
               Form Section
         ---------------------------------------------- */}
         <form onSubmit={handleSubmit}>
           {/* Full name filed */}
-          {!isLogin && (
+          {state === "signup" && (
             <div className="mb-4">
               <div className="flex bg-slate-700 rounded-full gap-3 px-5 py-2.5 w-full">
                 <img className="w-4" src={person_icon} alt="person icon" />
@@ -133,7 +133,7 @@ function LoginRegister() {
             )}
           </div>
 
-          {isLogin && (
+          {state === "login" && (
             <p
               onClick={() => navigate("/reset-password")}
               className="cursor-pointer mb-4"
@@ -145,14 +145,14 @@ function LoginRegister() {
             type="submit"
             className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium"
           >
-            {isLogin ? "Login" : "Sign Up"}
+            {state === "login" ? "Login" : "Sign Up"}
           </button>
         </form>
-        {isLogin ? (
+        {state === "login" ? (
           <p className="text-center mt-4 text-gray-400">
             Don't have an account?{" "}
             <span
-              onClick={() => setIsLogin(false)}
+              onClick={() => setState("signup")}
               className="underline cursor-pointer text-blue-400"
             >
               Sign Up
@@ -162,7 +162,7 @@ function LoginRegister() {
           <p className="text-center mt-4 text-gray-400">
             Already have an account?{" "}
             <span
-              onClick={() => setIsLogin(true)}
+              onClick={() => setState("login")}
               className="underline cursor-pointer text-blue-400"
             >
               Login here
