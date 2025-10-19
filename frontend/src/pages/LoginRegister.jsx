@@ -38,6 +38,7 @@ function LoginRegister() {
           formData
         );
         if (data.success) toast.success("login successful");
+        navigate("/");
       } else {
         // register logic
         const { data } = await axios.post(
@@ -45,6 +46,7 @@ function LoginRegister() {
           formData
         );
         if (data.success) toast.success(data.message);
+        setIsLogin(true)
       }
     } catch (error) {
       if (error.response && error.response.data) {
