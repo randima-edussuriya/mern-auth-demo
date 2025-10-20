@@ -30,7 +30,7 @@ authRouter.post("/send-verify-otp", userAuth, sendVerifyOtp);
 authRouter.post("/verify-email", userAuth, validateOtp, verifyEmail);
 
 //check authentication
-authRouter.post("/is-authenticated", userAuth, isAuthenticated);
+authRouter.get("/is-authenticated", userAuth, isAuthenticated);
 
 //reset password
 authRouter.post("/send-reset-otp", validateEmail, sendResetOtp);
