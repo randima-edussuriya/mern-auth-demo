@@ -1,9 +1,14 @@
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 function Header() {
+  const { userData } = useContext(AppContext);
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-6 px-4 text-center text-gray-800">
       <img className="w-18 sm:w-22" src="favicon.svg" alt="header img png" />
-      <h1 className="text-xl font-medium sm:text-2xl">Hey, User 👋</h1>
+      <h1 className="text-xl font-medium sm:text-2xl">
+        Hey, {userData ? userData.name : "User"} 👋
+      </h1>
       <h1 className="text-3xl font-black text-transparent sm:text-5xl bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text">
         Welcome to MERN - Auth Demo App
       </h1>

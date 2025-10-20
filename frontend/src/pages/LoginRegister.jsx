@@ -15,9 +15,8 @@ function LoginRegister() {
     email: "",
     password: "",
   });
-
   // get context values
-  const { backendUrl, setIsLoggedIn } = useContext(AppContext);
+  const { backendUrl, setIsLoggedIn, getUserData } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -38,6 +37,8 @@ function LoginRegister() {
           formData
         );
         if (data.success) toast.success("login successful");
+        setIsLoggedIn(true);
+        getUserData();
         navigate("/");
       } else {
         // register logic
