@@ -11,8 +11,18 @@ function NavBar() {
     <div className="absolute top-0 flex items-center justify-between w-full p-4 sm:p-6">
       <img src={logo} alt="Logo" className="w-28 sm:w-32" />
       {userData ? (
-        <div className="bg-blue-600 rounded-full w-8 h-8 flex justify-center items-center text-white sm:w-9 sm:h-9">
+        <div className="bg-blue-600 text-white rounded-full flex justify-center items-center w-8 h-8 sm:w-9 sm:h-9 relative group">
           {userData.name[0].toUpperCase()}
+          <div className="absolute hidden group-hover:block transition-all text-black top-0 right-0 z-10 pt-10">
+            <ul className="list-none p-2 bg-gray-100 rounded">
+              <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer rounded">
+                Verify Email
+              </li>
+              <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer rounded pr-11">
+                Logout
+              </li>
+            </ul>
+          </div>
         </div>
       ) : (
         <button
