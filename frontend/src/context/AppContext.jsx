@@ -35,7 +35,7 @@ export const AppContextProvider = ({ children }) => {
   // get user data
   const getUserData = async () => {
     try {
-      const { data } = await axios.get(`${backendUrl}/api/user`);
+      const { data } = await axios.get(`${backendUrl}/api/user/data`);
       if (data.success) setUserData(data.user);
     } catch (error) {
       if (error.response && error.response.data) {
