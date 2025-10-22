@@ -46,7 +46,7 @@ function LoginRegister() {
           formData
         );
         if (data.success) toast.success(data.message);
-        setState("signup");
+        setState("login");
       }
     } catch (error) {
       if (error.response && error.response.data) {
