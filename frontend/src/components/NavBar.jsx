@@ -3,10 +3,26 @@ import arrowIcon from "../assets/arrow_icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function NavBar() {
   const navigate = useNavigate();
-  const { userData } = useContext(AppContext);
+  const { userData, backendUrl } = useContext(AppContext);
+
+  //user logout
+  const handleLogout = async () => {
+    try {
+      const { data } = await axios.post(`${backendUrl}/api/auth/logout`);
+      if (data.success) {
+        navigate("/login");
+      }
+    } catch (error) {
+      toast.error("Something went wrong, Please try again later");
+      console.error(error);
+    }
+  };
+
   return (
     <div className="absolute top-0 flex items-center justify-between w-full p-4 sm:p-6">
       <img src={logo} alt="Logo" className="w-28 sm:w-32" />
@@ -18,7 +34,10 @@ function NavBar() {
               <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer rounded">
                 Verify Email
               </li>
-              <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer rounded pr-11">
+              <li
+                onClick={handleLogout}
+                className="py-1 px-2 hover:bg-gray-200 cursor-pointer rounded pr-11"
+              >
                 Logout
               </li>
             </ul>
