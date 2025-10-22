@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { createContext } from "react";
 import { toast } from "react-toastify";
 
+axios.defaults.withCredentials = true;
+
 export const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
@@ -46,7 +48,7 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getUserAuthState;
+    getUserAuthState();
   }, []);
 
   const value = {

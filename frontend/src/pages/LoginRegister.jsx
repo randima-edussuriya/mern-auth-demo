@@ -29,7 +29,6 @@ function LoginRegister() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      axios.defaults.withCredentials = true;
       if (state === "login") {
         // login logic
         const { data } = await axios.post(
