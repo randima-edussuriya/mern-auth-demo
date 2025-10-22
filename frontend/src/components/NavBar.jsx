@@ -8,7 +8,8 @@ import { toast } from "react-toastify";
 
 function NavBar() {
   const navigate = useNavigate();
-  const { userData, backendUrl, setIsLoggedIn } = useContext(AppContext);
+  const { userData, backendUrl, setIsLoggedIn, setUserData } =
+    useContext(AppContext);
 
   //user logout
   const handleLogout = async () => {
@@ -16,7 +17,8 @@ function NavBar() {
       const { data } = await axios.post(`${backendUrl}/api/auth/logout`);
       if (data.success) {
         setIsLoggedIn(false);
-        navigate("/login");
+        setUserData(false);
+        navigate("/");
       }
     } catch (error) {
       toast.error("Something went wrong, Please try again later");
@@ -32,7 +34,7 @@ function NavBar() {
           {userData.name[0].toUpperCase()}
           <div className="absolute hidden group-hover:block transition-all text-black top-0 right-0 z-10 pt-10">
             <ul className="list-none p-2 bg-gray-100 rounded">
-              {userData && userData.isAccountVerified === false && (
+              {userData.isAccountVerified === false && (
                 <li className="py-1 px-2 hover:bg-gray-200 cursor-pointer rounded">
                   Verify Email
                 </li>
