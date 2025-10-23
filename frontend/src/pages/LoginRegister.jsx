@@ -35,18 +35,22 @@ function LoginRegister() {
           `${backendUrl}/api/auth/login`,
           formData
         );
-        if (data.success) toast.success("login successful");
-        setIsLoggedIn(true);
-        getUserData();
-        navigate("/");
+        if (data.success) {
+          toast.success("login successful");
+          setIsLoggedIn(true);
+          getUserData();
+          navigate("/");
+        }
       } else {
         // register logic
         const { data } = await axios.post(
           `${backendUrl}/api/auth/register`,
           formData
         );
-        if (data.success) toast.success(data.message);
-        setIsLoginForm(true);
+        if (data.success) {
+          toast.success(data.message);
+          setIsLoginForm(true);
+        }
       }
     } catch (error) {
       if (error.response && error.response.data) {
