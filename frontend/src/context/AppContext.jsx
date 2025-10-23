@@ -23,7 +23,7 @@ export const AppContextProvider = ({ children }) => {
         getUserData();
       }
     } catch (error) {
-      if (error.response && error.response.data) {
+      if (error.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error("Something went wrong, Please try again later");
@@ -38,7 +38,7 @@ export const AppContextProvider = ({ children }) => {
       const { data } = await axios.get(`${backendUrl}/api/user/data`);
       if (data.success) setUserData(data.user);
     } catch (error) {
-      if (error.response && error.response.data) {
+      if (error.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error("Something went wrong, Please try again later");

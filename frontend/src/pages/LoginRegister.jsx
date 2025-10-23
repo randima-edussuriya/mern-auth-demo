@@ -53,7 +53,7 @@ function LoginRegister() {
         }
       }
     } catch (error) {
-      if (error.response && error.response.data) {
+      if (error.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error("Something went wrong, Please try again later");
