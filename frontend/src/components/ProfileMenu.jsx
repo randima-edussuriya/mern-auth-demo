@@ -31,7 +31,7 @@ function ProfileMenu({ setIsMenuOpen }) {
   const sendVerificationOtp = async () => {
     try {
       const { data } = await axios.post(
-        `${backendUrl}/api/auth/send-verifyotp`
+        `${backendUrl}/api/auth/send-verify-otp`
       );
       if (data.success) {
         toast.success(data.message);
