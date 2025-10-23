@@ -1,8 +1,10 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const { userData } = useContext(AppContext);
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-6 px-4 text-center text-gray-800">
       <img className="w-18 sm:w-22" src="favicon.svg" alt="header img png" />
@@ -19,7 +21,10 @@ function Header() {
       </p>
       <p>Feel free to explore the app and test its features!</p>
       <p>Happy coding! 😊</p>
-      <button className="px-6 py-2 text-green-700 border border-green-700 rounded-full cursor-pointer hover:bg-green-200 transition-all">
+      <button
+        onClick={() => navigate("/login")}
+        className="px-6 py-2 text-green-700 border border-green-700 rounded-full cursor-pointer hover:bg-green-200 transition-all"
+      >
         Get Started
       </button>
     </div>
