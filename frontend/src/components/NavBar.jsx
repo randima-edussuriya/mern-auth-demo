@@ -14,7 +14,7 @@ function NavBar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    //close menu on outside clisk
+    //close menu on outside click
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
