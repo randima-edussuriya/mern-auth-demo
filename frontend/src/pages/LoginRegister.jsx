@@ -136,27 +136,28 @@ function LoginRegister() {
             )}
           </div>
 
-          {isLoginForm === "login" && (
+          {isLoginForm && (
             <p
               onClick={() => navigate("/reset-password")}
-              className="cursor-pointer mb-4"
+              className="cursor-pointer mb-4 hover:text-indigo-200"
             >
               Forgot Password?
             </p>
           )}
           <button
             type="submit"
-            className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium"
+            className="mb-4 rounded-full w-full py-2 bg-gradient-to-br from-blue-900 to-blue-400 cursor-pointer text-white font-medium hover:from-blue-800 transition-all"
           >
             {isLoginForm ? "Login" : "Sign Up"}
           </button>
         </form>
+
         {isLoginForm ? (
           <p className="text-center mt-4 text-gray-400">
             Don't have an account?{" "}
             <span
               onClick={() => setIsLoginForm(false)}
-              className="underline cursor-pointer text-blue-400"
+              className="underline cursor-pointer text-blue-400 hover:text-blue-300 transition-all"
             >
               Sign Up
             </span>
@@ -166,7 +167,7 @@ function LoginRegister() {
             Already have an account?{" "}
             <span
               onClick={() => setIsLoginForm(true)}
-              className="underline cursor-pointer text-blue-400"
+              className="underline cursor-pointer text-blue-400 hover:text-blue-300 transition-all"
             >
               Login here
             </span>
