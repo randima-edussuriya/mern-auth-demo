@@ -11,7 +11,7 @@ function Header() {
       <h1 className="text-xl font-medium sm:text-2xl">
         Hey, {userData ? userData.name : "User"} 👋
       </h1>
-      <h1 className="text-3xl font-black text-transparent sm:text-5xl bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text">
+      <h1 className="text-3xl font-black text-transparent sm:text-5xl bg-linear-to-r from-blue-600 to-green-600 bg-clip-text">
         Welcome to MERN - Auth Demo App
       </h1>
       <p className="max-w-md">
