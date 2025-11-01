@@ -1,6 +1,9 @@
 export const maskEmail = (email) => {
   if (!email) return "";
-  const [localPart, doamin] = email.split("@");
-  if (localPart.length <= 2) return localPart[0] + "***" + "@" + doamin;
-  return localPart[0] + "***" + localPart.slice(-1) + "@" + doamin;
+
+  const [localPart, domain] = email.split("@");
+  if (!localPart || !domain) return "";
+
+  if (localPart.length <= 2) return `${localPart[0]}***@${domain}`;
+  return `${localPart[0]}***${localPart.slice(-1)}@${domain}`;
 };
