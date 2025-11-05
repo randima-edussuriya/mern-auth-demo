@@ -16,7 +16,7 @@ function ProfileMenu({ setIsMenuOpen }) {
       const { data } = await axios.post(`${backendUrl}/api/auth/logout`);
       if (data.success) {
         setIsLoggedIn(false);
-        setUserData(false);
+        setUserData(null);
         navigate("/");
       }
     } catch (error) {
