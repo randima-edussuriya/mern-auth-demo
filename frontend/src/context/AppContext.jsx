@@ -10,24 +10,35 @@ export const AppContext = createContext();
 export const AppContextProvider = ({ children }) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const [authChecked, setAuthChecked] = useState(false);
 
   //get user authentication
   const getUserAuthState = async () => {
     try {
-      const { data } = await axios.get(
-        `${backendUrl}/api/auth/is-authenticated`
-      );
-      if (data.success) {
-        setIsLoggedIn(true);
-        getUserData();
+      if (!backendUrl) {
+        console.warn("VITE_BACKEND_URL is missing.");
+        setIsLoggedIn(false);
+        return;
       }
+
+      await axios.get(`${backendUrl}/api/auth/is-authenticated`);
+      setIsLoggedIn(true);
+      await getUserData();
     } catch (error) {
-      toast.error(
-        error.response?.data?.message ||
-          "Something went wrong, Please try again later"
-      );
-      console.error(error);
+      const status = error?.response?.status;
+      if (status === 401 || status === 403) {
+        // Expected when the user is not logged in – don't toast
+        setIsLoggedIn(false);
+      } else {
+        toast.error(
+          error?.response?.data?.message ||
+            "Something went wrong, Please try again later"
+        );
+        console.error(error);
+      }
+    } finally {
+      setAuthChecked(true);
     }
   };
 
@@ -35,10 +46,10 @@ export const AppContextProvider = ({ children }) => {
   const getUserData = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/user/data`);
-      if (data.success) setUserData(data.user);
+      setUserData(data.user);
     } catch (error) {
       toast.error(
-        error.response?.data?.message ||
+        error?.response?.data?.message ||
           "Something went wrong, Please try again later"
       );
       console.error(error);
@@ -56,6 +67,7 @@ export const AppContextProvider = ({ children }) => {
     userData,
     setUserData,
     getUserData,
+    authChecked,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
