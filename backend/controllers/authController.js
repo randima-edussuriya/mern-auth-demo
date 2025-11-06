@@ -178,13 +178,7 @@ export const verifyEmail = async (req, res) => {
 };
 
 export const isAuthenticated = async (req, res) => {
-  try {
-    return res.status(200).json({ success: true, message: "Authenticated" });
-  } catch (error) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Not authenticated" });
-  }
+  res.status(200).json({ success: true, message: "Authenticated" });
 };
 
 export const sendResetOtp = async (req, res) => {
