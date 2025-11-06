@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import lock_icon from "../assets/lock_icon.svg";
 import mail_icon from "../assets/mail_icon.svg";
 import person_icon from "../assets/person_icon.svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -16,9 +16,17 @@ function LoginRegister() {
     password: "",
   });
   // get context values
-  const { backendUrl, setIsLoggedIn, getUserData } = useContext(AppContext);
+  const { backendUrl, isLoggedIn, setIsLoggedIn, getUserData } =
+    useContext(AppContext);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn)
+      navigate(location.state?.from?.pathname || "/", { replace: true });
+  }, [isLoggedIn]);
 
   //handle form input change
   const handlechange = (e) => {
@@ -39,7 +47,7 @@ function LoginRegister() {
           toast.success("login successful");
           setIsLoggedIn(true);
           getUserData();
-          navigate("/");
+          navigate(location.state?.from?.pathname || "/", { replace: true });
         }
       } else {
         // register logic
