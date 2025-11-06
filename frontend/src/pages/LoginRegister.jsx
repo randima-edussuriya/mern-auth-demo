@@ -22,12 +22,6 @@ function LoginRegister() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // redirect if already logged in
-  useEffect(() => {
-    if (isLoggedIn)
-      navigate(location.state?.from?.pathname || "/", { replace: true });
-  }, [isLoggedIn]);
-
   //handle form input change
   const handlechange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -68,6 +62,13 @@ function LoginRegister() {
       console.error(error);
     }
   };
+
+  // redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn)
+      navigate(location.state?.from?.pathname || "/", { replace: true });
+  }, [isLoggedIn]);
+
   return (
     <div className="flex items-center justify-center min-h-screen  bg-linear-to-br from-blue-300 to-green-300 px-6 sm:px-0">
       <div className="w-full sm:w-100 p-10 text-indigo-300 rounded-lg shadow-lg bg-slate-900">
