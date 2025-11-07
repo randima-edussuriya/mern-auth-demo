@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import logo_badge from "../assets/logo_badge.svg";
 
 function LoginRegister() {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -78,8 +79,8 @@ function LoginRegister() {
         <img
           onClick={() => navigate("/")}
           className="mx-auto mb-3 w-13 sm:w-15 cursor-pointer"
-          src="favicon.svg"
-          alt="Logo"
+          src={logo_badge}
+          alt="Logo badge"
         />
         <h1 className="mb-3 text-2xl sm:text-3xl font-semibold text-center text-white">
           {isLoginForm ? "Login" : "Sign Up"}
