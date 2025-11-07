@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader";
 
 axios.defaults.withCredentials = true;
 
@@ -69,5 +70,9 @@ export const AppContextProvider = ({ children }) => {
     getUserData,
     authChecked,
   };
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      {!authChecked ? <Loader /> : children}
+    </AppContext.Provider>
+  );
 };
