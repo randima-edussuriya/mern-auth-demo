@@ -72,7 +72,7 @@ export const AppContextProvider = ({ children }) => {
   };
   return (
     <AppContext.Provider value={value}>
-      {!authChecked ? <Loader /> : children}
+      {authChecked ? children : <Loader />}
     </AppContext.Provider>
   );
 };
