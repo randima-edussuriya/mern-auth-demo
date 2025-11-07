@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import faviconLogo from "../../public/favicon.svg";
 
 function Header() {
-  const { userData } = useContext(AppContext);
+  const { userData, isLoggedIn } = useContext(AppContext);
   const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-6 px-4 text-center text-gray-800">
-      <img className="w-18 sm:w-22" src="favicon.svg" alt="header img png" />
+      <img className="w-18 sm:w-22" src={faviconLogo} alt="logo" />
       <h1 className="text-xl font-medium sm:text-2xl">
         Hey, {userData ? userData.name : "User"} 👋
       </h1>
@@ -21,12 +22,14 @@ function Header() {
       </p>
       <p>Feel free to explore the app and test its features!</p>
       <p>Happy coding! 😊</p>
-      <button
-        onClick={() => navigate("/login")}
-        className="px-6 py-2 text-green-700 border border-green-700 rounded-full cursor-pointer hover:bg-green-200 transition-all"
-      >
-        Get Started
-      </button>
+      {!isLoggedIn && (
+        <button
+          onClick={() => navigate("/login")}
+          className="px-6 py-2 text-green-700 border border-green-700 rounded-full cursor-pointer hover:bg-green-200 transition-all"
+        >
+          Get Started
+        </button>
+      )}
     </div>
   );
 }
